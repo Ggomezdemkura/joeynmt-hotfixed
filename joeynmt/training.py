@@ -570,7 +570,7 @@ class TrainManager:
         # reactivate training
         self.model.train()
 
-        # This caused training errors with CPU. Experiment if you want to use GPU/cuda
+        ## This caused training errors with CPU. Experiment if you want to use GPU/cuda
         print(f"DEBUG:\n \
               device type: \t{self.device.type} \
               enabled or na?: \t{self.fp16} \
@@ -581,8 +581,8 @@ class TrainManager:
             #get loss (run as during training with teacher forcing)
             batch_loss, _, _, correct_tokens = self.model(return_type="loss",
                                                     **vars(batch))
-            batch_loss, _, _, correct_tokens = self.model(return_type="loss",
-                                                          **vars(batch))
+            #batch_loss, _, _, correct_tokens = self.model(return_type="loss",
+            #                                              **vars(batch))
 
         # normalize batch loss
         norm_batch_loss = batch.normalize(
