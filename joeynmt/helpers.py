@@ -180,8 +180,11 @@ def write_list_to_file(output_path: Path, array: List[Any]) -> None:
     :param output_path: output file path
     :param array: list of strings
     """
+    logger = logging.getLogger(__name__)
+
     with output_path.open("w", encoding="utf-8") as opened_file:
         for entry in array:
+            logger.info(f"{entry}")
             opened_file.write(f"{entry}\n")
 
 
@@ -487,7 +490,8 @@ def load_checkpoint(path: Path, device: torch.device) -> Dict:
     """
     logger = logging.getLogger(__name__)
     assert path.is_file(), f"Checkpoint {path} not found."
-    checkpoint = torch.load(path, map_location=device)
+    logger.info("Loading model from %s.", path.resolve())
+    checkpoint = torch.load(path, map_location="cpu")
     logger.info("Load model from %s.", path.resolve())
     return checkpoint
 
